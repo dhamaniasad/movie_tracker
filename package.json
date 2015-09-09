@@ -18,5 +18,8 @@
   "homepage": "https://github.com/dhamaniasad/movie_tracker",
   "devDependencies": {
     "electron-prebuilt": "^0.32.0"
+  },
+  "dependencies": {
+    "got": "^4.2.0"
   }
 }
