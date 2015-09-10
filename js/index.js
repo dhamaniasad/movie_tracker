@@ -28,23 +28,14 @@ var SearchVM = function (first) {
 
     self.movieInput = ko.observable(first);
 
-    self.movieName = ko.computed({
-        read: function () {
+    self.movieName = ko.computed(function () {
             fetchData(self.movieInput(), callback);
             function callback (data) {
                 console.log(data);
                 console.log('callback done');
-                return self.movieName(data[0].Title);
+                return data[0]['Title'];
             }
-        },
-        write: function (value) {
-            fetchData(value, callback);
-            function callback (data) {
-                self.movieName(data[0].Title);
-            }
-        },
-        owner: this
-    });
-};
+        }, this);
+    };
 
 ko.applyBindings(new SearchVM('2001: A Space Odyssey'));
