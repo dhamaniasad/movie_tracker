@@ -8,13 +8,13 @@ $("#searchForm").submit(function () {
     return false;
 });
 
-function fetchData (search) {
+function fetchData (search, callback) {
     got(OMDbBaseUrl + search, {json: true}, function (err, data, res) {
         if (err) {
             alert('Your internet connection or the database seems to be down :(. Try again in a little while.')
         }
         else {
-            return data
+            callback(data.Search);
         }
     });
 }
@@ -22,9 +22,11 @@ function fetchData (search) {
 // Knockout
 
 var SearchVM = function (first) {
+    showCard = ko.observable(true);
+
     this.movieInput = ko.observable(first);
 
-    this.movieName = ko.pureComputed(function() {
+    this.movieName = ko.computed(function () {
         return this.movieInput();
     }, this);
 };
