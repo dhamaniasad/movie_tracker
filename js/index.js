@@ -14,6 +14,7 @@ function fetchData (search, callback) {
             alert('Your internet connection or the database seems to be down :(. Try again in a little while.')
         }
         else {
+            console.log('calling callback');
             callback(data.Search);
         }
     });
@@ -22,13 +23,28 @@ function fetchData (search, callback) {
 // Knockout
 
 var SearchVM = function (first) {
+    var self = this;
     showCard = ko.observable(true);
 
-    this.movieInput = ko.observable(first);
+    self.movieInput = ko.observable(first);
 
-    this.movieName = ko.computed(function () {
-        return this.movieInput();
-    }, this);
+    self.movieName = ko.computed({
+        read: function () {
+            fetchData(self.movieInput(), callback);
+            function callback (data) {
+                console.log(data);
+                console.log('callback done');
+                return self.movieName(data[0].Title);
+            }
+        },
+        write: function (value) {
+            fetchData(value, callback);
+            function callback (data) {
+                self.movieName(data[0].Title);
+            }
+        },
+        owner: this
+    });
 };
 
 ko.applyBindings(new SearchVM('2001: A Space Odyssey'));
