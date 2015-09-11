@@ -22,7 +22,7 @@ function fetchData (search, callback) {
 
 // Semantic
 
-$('.special.cards .image').dimmer({
+$('.special.card .image').dimmer({
     on: 'hover'
 });
 
