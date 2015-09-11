@@ -1,7 +1,7 @@
 // Imports
 var got = require('got');
 
-const OMDbBaseUrl = "http://www.omdbapi.com/?s=";
+const OMDbBaseUrl = "http://www.omdbapi.com/?y=&plot=short&r=json&t=";
 
 $("#searchForm").submit(function () {
     // Do not want the page to reload on submit
@@ -15,7 +15,7 @@ function fetchData (search, callback) {
         }
         else {
             console.log('calling callback');
-            callback(data.Search);
+            callback(data);
         }
     });
 }
@@ -24,18 +24,32 @@ function fetchData (search, callback) {
 
 var SearchVM = function () {
     var self = this;
-    showCard = ko.observable(true);
+    self.showCard = ko.observable(false);
 
     self.movieInput = ko.observable();
 
     self.movieName = ko.observable();
+
+    self.moviePoster = ko.observable();
+
+    self.moviePlot = ko.observable();
+
+    self.movieYear = ko.observable();
+
+    self.movieRating = ko.observable();
 
     self.movieInput.subscribe(function (newValue) {
         // Simulating an AJAX call by firing a timeout.
         self.movieName('Fetching...');
         fetchData(self.movieInput(), callback);
         function callback (data) {
-            self.movieName(data[0]['Title']);
+            self.movieName(data['Title']);
+            self.moviePoster(data['Poster']);
+            self.moviePlot(data['Plot']);
+            self.movieYear(data['Year']);
+            self.movieRating(data['imdbRating']);
+            self.showCard(true);
+            console.log(data);
         }
     });
 
