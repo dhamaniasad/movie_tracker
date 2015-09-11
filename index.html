@@ -27,22 +27,31 @@
     </div>
     </div>
     <div class="row">
-        <div data-bind="visible: showCard" id="movieCard" class="ui card">
-            <div class="image">
-                <img data-bind="attr:{src: moviePoster}" src="#">
-            </div>
-            <div class="content">
-                <a class="header" data-bind="text: movieName"></a>
-                <div class="meta">
-                    <span data-bind="text: movieYear" class="date"></span>
+        <div class="ui special cards">
+            <div data-bind="visible: showCard" class="card">
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui inverted button">Add To List</div>
+                            </div>
+                        </div>
+                    </div>
+                    <img data-bind="attr:{src: moviePoster}" src="#">
                 </div>
-                <div data-bind="text: moviePlot" class="description">
+                <div class="content">
+                    <a data-bind="text: movieName" class="header"></a>
+                    <div class="meta">
+                        <span data-bind="text: movieYear" class="date"></span>
+                    </div>
+                    <div data-bind="text: moviePlot" class="description">
+                    </div>
                 </div>
-            </div>
-            <div class="extra content">
-                <a>
-                    <i data-bind="text: movieRating" class="user icon"></i>
-                </a>
+                <div class="extra content">
+                    <a>
+                        <i data-bind="text: movieRating" class="users icon"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

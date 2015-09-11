@@ -20,6 +20,12 @@ function fetchData (search, callback) {
     });
 }
 
+// Semantic
+
+$('.special.cards .image').dimmer({
+    on: 'hover'
+});
+
 // Knockout
 
 var SearchVM = function () {
