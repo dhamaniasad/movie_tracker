@@ -22,20 +22,23 @@ function fetchData (search, callback) {
 
 // Knockout
 
-var SearchVM = function (first) {
+var SearchVM = function () {
     var self = this;
     showCard = ko.observable(true);
 
-    self.movieInput = ko.observable(first);
+    self.movieInput = ko.observable();
 
-    self.movieName = ko.computed(function () {
-            fetchData(self.movieInput(), callback);
-            function callback (data) {
-                console.log(data);
-                console.log('callback done');
-                return data[0]['Title'];
-            }
-        }, this);
+    self.movieName = ko.observable();
+
+    self.movieInput.subscribe(function (newValue) {
+        // Simulating an AJAX call by firing a timeout.
+        self.movieName('Fetching...');
+        fetchData(self.movieInput(), callback);
+        function callback (data) {
+            self.movieName(data[0]['Title']);
+        }
+    });
+
     };
 
-ko.applyBindings(new SearchVM('2001: A Space Odyssey'));
+ko.applyBindings(new SearchVM());
